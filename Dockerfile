@@ -1,4 +1,4 @@
-FROM node:12.10.0
+FROM node:15-buster
 
 LABEL "com.github.actions.name"="Puppeteer Headful"
 LABEL "com.github.actions.description"="A GitHub Action / Docker image for Puppeteer, the Headful Chrome Node API"
@@ -11,7 +11,7 @@ LABEL "maintainer"="Jacob Lowe"
 
 RUN  apt-get update \
      # See https://crbug.com/795759
-     && apt-get install -yq libgconf-2-4 \
+     # && apt-get install -yq libgconf-2-4 \
      # Install latest chrome dev package, which installs the necessary libs to
      # make the bundled version of Chromium that Puppeteer installs work.
      && apt-get install -y wget xvfb --no-install-recommends \
@@ -19,8 +19,10 @@ RUN  apt-get update \
      && sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list' \
      && apt-get update \
      && apt-get install -y google-chrome-stable --no-install-recommends \
-     && rm -rf /var/lib/apt/lists/*
+     && rm -rf /var/lib/apt/lists/* \
+     && useradd -ms /bin/bash chromeuser
 
+USER chromeuser
 
 ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
 
