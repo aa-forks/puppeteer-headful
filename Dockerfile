@@ -10,7 +10,7 @@ LABEL "homepage"="https://github.com/aa-forks/puppeteer-headful"
 LABEL "maintainer"="AAGaming00, Jacob Lowe"
 
 RUN  apk add chromium \
-  && useradd -ms /bin/bash chromeuser
+  && adduser -D chromeuser
 
 USER chromeuser
 
