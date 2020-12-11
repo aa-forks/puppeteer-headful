@@ -9,7 +9,7 @@ LABEL "repository"="https://github.com/aa-forks/puppeteer-headful"
 LABEL "homepage"="https://github.com/aa-forks/puppeteer-headful"
 LABEL "maintainer"="AAGaming00, Jacob Lowe"
 
-RUN  apk add chromium \
+RUN  apk add xvfb chromium \
   && adduser -D chromeuser
 
 USER chromeuser
